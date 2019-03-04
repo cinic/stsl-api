@@ -1,0 +1,10 @@
+{
+  "name": "stsl-api",
+  "version": "1.0.0",
+  "description": "Stock Ticker Symbol Lookup API",
+  "main": "./src/server.js",
+  "repository": "https://github.com/cinic/stsl-api.git",
+  "author": "cinic <cinic.rus@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
