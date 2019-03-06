@@ -6,5 +6,8 @@
   "repository": "https://github.com/cinic/stsl-api.git",
   "author": "cinic <cinic.rus@gmail.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "start": "node ./src/app.js"
+  }
 }
