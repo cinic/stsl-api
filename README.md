@@ -1,6 +1,6 @@
 # Local running
 
-1. Install latest lts [Node.js and npm](https://nodejs.org/)
+1. Install latest lts (current 10.15.3) version of [Node.js and npm](https://nodejs.org/)
 2. Clone repository
 <pre>
 git clone https://github.com/cinic/stsl-api.git
