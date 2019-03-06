@@ -6,13 +6,17 @@ function fetch(url) {
   return new Promise((resolve, reject) => {
     https
       .get(url, response => {
-        const json = response.headers['content-type'].indexOf('application/json') !== -1;
+        const { headers, statusCode } = response;
+        const json = headers['content-type'].indexOf('application/json') !== -1;
 
         response
           .on('data', chunk => result.push(chunk))
           .on('end', () => {
-            const body = Buffer.concat(result).toString();
-            return json ? resolve(JSON.parse(body)) : reject('Internal server error');
+            const bodyBuffer = Buffer.concat(result).toString();
+            const body = json ? JSON.parse(bodyBuffer) : bodyBuffer;
+            const data = { statusCode, body };
+
+            return statusCode === 200 ? resolve(data) : reject(data);
           });
       })
       .on('error', error => reject(error))

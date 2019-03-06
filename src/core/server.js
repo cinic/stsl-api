@@ -42,8 +42,8 @@ class Server {
     }
     
     return controller({ match })
-      .then(data => _response.ok(data))
-      .catch(error => _response.error500(error));
+      .then(({ body }) => _response.ok(body))
+      .catch(({ statusCode, body }) => _response.error(body, statusCode));
   }
 
   get(path, callback) {

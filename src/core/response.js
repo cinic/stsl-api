@@ -33,8 +33,9 @@ class Response {
     this.toJson({ message });
   }
 
-  getStatusCode() {
-    return this.response.statusCode;
+  error(message, code) {
+    this.response.statusCode = code;
+    this.toJson({ message });
   }
 }
 

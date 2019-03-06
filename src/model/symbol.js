@@ -5,30 +5,24 @@ class Symbol {
     /**
      * These paths are used only in this model, so they do not need to have a separate config
      */
-    const paths = {
-      quote: `https://api.iextrading.com/1.0/stock/${name}/quote`,
-      news: `https://api.iextrading.com/1.0/stock/${name}/news/last/1`,
-      logo: `https://api.iextrading.com/1.0/stock/${name}/logo`
-    }
-
-    const fetchQuote = fetch(paths.quote);
-    const fetchLogo = fetch(paths.logo);
-    const fetchNews = fetch(paths.news);
-    const promises = Promise.all([fetchQuote, fetchLogo, fetchNews])
+    const fetchQuote = fetch(`https://api.iextrading.com/1.0/stock/${name}/quote`);
+    const fetchLogo = fetch(`https://api.iextrading.com/1.0/stock/${name}/logo`);
+    const fetchNews = fetch(`https://api.iextrading.com/1.0/stock/${name}/news/last/1`);
 
     return new Promise((resolve, reject) => {
-      promises
-        .then(result => {
-          const [quote, logo, news] = result;
-          const [latestNews] = news;
-
-          return resolve({
-            price: quote.latestPrice,
-            logo: logo.url,
+      Promise
+        .all([fetchQuote, fetchLogo, fetchNews])
+        .then(([quote, logo, news]) => {
+          const [latestNews] = news.body;
+          const body =  {
+            price: quote.body.latestPrice,
+            logo: logo.body.url,
             news: latestNews.url
-          })
-        },
-        error => reject(error));
+          }
+
+          resolve({ statusCode: 200, body });
+        })
+        .catch(error => reject(error));
     });
   }
 }
