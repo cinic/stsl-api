@@ -84,7 +84,7 @@ class Server {
     return this;
   }
 
-  start(logger) {
+  start() {
     this.server
       .on('request', this.handleRequest)
       .listen(this.port, this.host, () => console.log(`Server running at http://${this.host}:${this.port}/`));
